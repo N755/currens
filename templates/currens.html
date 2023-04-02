@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Currency Calculator</title>
+  </head>
+  <body>
+    <form method="POST" action="/">
+      <h1>Currency calculator</h1>
+      <label class="label_code" for="code">Choose a currency code: </label>
+      <select name="code" id="code">
+        {% for item in items %}
+        <option value="{{item}}">{{item}}</option>
+        {% endfor %}
+      </select>
+      <p>
+        <label class="label_code" for="summ"
+          >The amount of the selected currency:
+        </label>
+        <input
+          class="calculatorForm__input"
+          placeholder="enter value"
+          value=" "
+          type="number"
+          name="amount"
+        />
+      </p>
+        <button class="convert_button" type="submit">Convert currency</button>
+      </p>
+      <p>
+        {% if result %}
+        <label class="label_code" for="summ">Result: {{result}} </label>
+        {% endif %}
+      </p>
+    </form>
+  </body>
+</html>
