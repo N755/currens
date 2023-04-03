@@ -26,27 +26,30 @@ with open('currens.csv', newline='', encoding='utf-8') as csvfile:
         rates[currency] = [code, bid, ask]
 
 def calculate_result(amount, ask):
-    return (amount*ask)
+    return float(amount)*float(ask)
 
 
 @app.route('/', methods=['GET','POST'])
 def calculate():
     items = rates.keys()
-    result = " "
+    result = ''
+    if request.method == 'GET':
+        return render_template('currens.html', items=items, result=result)
     if request.method == 'POST':
         data = request.form
-        amount = float(data.get('amount'))
+        amount = data.get('amount')
         code = data.get('code')
         for currency in rates:
             if rates[currency][0] == code:
                 name_currency = currency
                 ask = float(rates[currency][2])
-                costs = calculate_result(amount, ask)
+                costs = calculate_result(float(amount), float(ask))
                 result = f"{amount} {name_currency} costs {costs:.2f} PLN"
-                print(result)
+                break
         return render_template('currens.html', items=items, result=result)
-    
 
+
+    
 
 
 if __name__ == '__main__':
