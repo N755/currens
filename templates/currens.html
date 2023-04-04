@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Currency Calculator</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div>
@@ -15,9 +16,9 @@
           {% endfor %}
         </select>
         <p>
-          <label class="label_code" for="result"
-            >The amount of the selected currency:</label
-          >
+          <label class="label_result" for="result">
+            The amount of the selected currency:
+          </label>
           <input
             class="calculatorForm__input"
             placeholder="enter value"
@@ -32,7 +33,7 @@
 
         <p id="result">
           {% if result %}
-          <label class="label_code" for="result">Result: {{result}} </label>
+          <label class="label_result" for="result">Result: {{result}} </label>
           {% endif %}
         </p>
       </form>
