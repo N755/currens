@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Currency Calculator</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="static\style.css" />
   </head>
   <body>
-    <div>
+    <div class="calculate">
       <form method="POST" action="/">
         <h1>Currency calculator</h1>
-        <label class="label_code" for="code">Choose a currency code: </label>
-        <select name="code" id="code">
+        <label for="code">Choose a currency code:</label>
+        <select class="code" name="code" id="code">
           {% for item in items %}
           <option value="{{item}}">{{item}}</option>
           {% endfor %}

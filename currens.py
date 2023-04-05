@@ -31,7 +31,7 @@ def calculate_result(amount, ask):
 @app.route('/', methods=['GET','POST'])
 def calculate():
     items = rates.keys()
-    result=calculate_result    # як зробити щоб на початковій сторінці був пустий результат а не Result: <function calculate_result at 0x000001D17B56B1C0>
+    result = ' '
     if request.method == 'GET':
         return render_template('currens.html', items=items, result=result)
     if request.method == 'POST':

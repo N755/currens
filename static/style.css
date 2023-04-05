@@ -1,0 +1,20 @@
+h1 {
+  font-style: bold;
+}
+
+.convert_button {
+  background-color: cornflowerblue;
+  border-color: cornflowerblue;
+  border-radius: 15px;
+  outline: 0;
+}
+.calculatorForm__input,
+.code {
+  border-radius: 15px;
+  border: 2px solid cornflowerblue;
+}
+body {
+  background-color: blueviolet;
+  width: 500px;
+  margin: 0 auto;
+}
