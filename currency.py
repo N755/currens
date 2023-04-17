@@ -7,7 +7,7 @@ app = Flask(__name__)
 response = requests.get("http://api.nbp.pl/api/exchangerates/tables/C?format=json")
 data = response.json()
 
-with open('currens.csv', 'w', newline='', encoding='utf-8') as file:
+with open('currency.csv', 'w', newline='', encoding='utf-8') as file:
     fields = ['currency', 'code', 'bid', 'ask']
     writer = csv.DictWriter(file, delimiter=';', fieldnames=fields)
     writer.writeheader()
@@ -15,7 +15,7 @@ with open('currens.csv', 'w', newline='', encoding='utf-8') as file:
         writer.writerow({'currency': rate["currency"], 'code': rate["code"], 'bid': rate["bid"], 'ask': rate["ask"]})
 
 rates = {}
-with open('currens.csv', newline='', encoding='utf-8') as csvfile:
+with open('currency.csv', newline='', encoding='utf-8') as csvfile:
     reader=csv.DictReader(csvfile, delimiter=';')
     for row in reader:
         currency = row['currency']
@@ -27,21 +27,23 @@ with open('currens.csv', newline='', encoding='utf-8') as csvfile:
 def calculate_result(amount, ask):
     return float(amount)*float(ask)
 
+@app.route('/', methods=['GET'])
+def calculates():
+    items = rates.keys()
+    result = ' '
+    return render_template('currency.html', items=items, result=result)
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['POST'])
 def calculate():
     items = rates.keys()
     result = ' '
-    if request.method == 'GET':
-        return render_template('currens.html', items=items, result=result)
-    if request.method == 'POST':
-        data = request.form
-        amount = data.get('amount')
-        code = data.get('code')
-        ask = float(rates[currency][2])
-        costs = calculate_result(float(amount), float(ask))
-        result = f"{amount} {code} costs {costs:.2f} PLN"
-        return render_template('currens.html', items=items, result=result)
+    data = request.form
+    amount = data.get('amount')
+    code = data.get('code')
+    ask = float(rates[currency][2])
+    costs = calculate_result(float(amount), float(ask))
+    result = f"{amount} {code} costs {costs:.2f} PLN"
+    return render_template('currency.html', items=items, result=result)
 
 if __name__ == '__main__':
     app.run(debug=True)
